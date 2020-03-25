@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/app_fragments_flow"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.grayhatdevelopers.thecoronamap.ui.fragments.splash.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.grayhatdevelopers.thecoronamap.ui.fragments.webview.WebViewFragment"
+        android:label="WebViewFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.grayhatdevelopers.thecoronamap.ui.fragments.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigationDrawerFragment"
+        android:name="com.grayhatdevelopers.thecoronamap.ui.fragments.navigationdrawer.NavigationDrawerFragment"
+        android:label="NavigationDrawerFragment" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.grayhatdevelopers.thecoronamap.ui.fragments.report.ReportFragment"
+        android:label="ReportFragment" />
+</navigation>

@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import com.grayhatdevelopers.kontrol.ui.fragments.base.LaunchIntentCommand
 import com.grayhatdevelopers.kontrol.ui.fragments.base.NavigationCommand
+import com.grayhatdevelopers.thecoronamap.repo.Repository
 import com.grayhatdevelopers.thecoronamap.utils.SingleLiveEvent
 
-open class BaseViewModel : ViewModel(), Observable {
+open class BaseViewModel() : ViewModel(), Observable {
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
+    val repo = Repository.getInstance()
 
     val navigationCommand: SingleLiveEvent<NavigationCommand> =
         SingleLiveEvent()

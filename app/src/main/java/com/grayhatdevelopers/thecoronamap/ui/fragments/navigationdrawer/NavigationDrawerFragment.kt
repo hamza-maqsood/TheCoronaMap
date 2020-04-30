@@ -28,7 +28,7 @@ class NavigationDrawerFragment : BaseFragment() {
             lifecycleOwner = this@NavigationDrawerFragment
             mViewModel = InjectorUtils.provideNavigationDrawerViewModel()
             viewModel = mViewModel
-            user = User("Hamza Maqsood", "hamza@gmail.com", "Islamabad, Pakistan")
+            user = User("Username", "user@thecoronamap.com", "Your Location")
         }.root
     }
 

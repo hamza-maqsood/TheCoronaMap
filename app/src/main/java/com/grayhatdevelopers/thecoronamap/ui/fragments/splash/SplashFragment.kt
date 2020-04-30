@@ -19,7 +19,7 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Handler().postDelayed({
-            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToSelectCountryFragment())
         },800)
     }
 }

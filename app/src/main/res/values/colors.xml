@@ -16,4 +16,6 @@
     <color name="black">#000000</color>
     <color name="charcol">#262626</color>
     <color name="blue">#588BAE</color>
+    <color name="facebook">#006694</color>
+    <color name="google">#0089DC</color>
 </resources>

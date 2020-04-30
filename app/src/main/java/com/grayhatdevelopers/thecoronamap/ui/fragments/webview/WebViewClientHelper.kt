@@ -1,15 +1,14 @@
 package com.grayhatdevelopers.thecoronamap.ui.fragments.webview
 
-import android.app.Activity
 import android.os.Build
+import android.util.Log
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 
-class WebViewClientHelper internal constructor(private val activity: Activity) : WebViewClient() {
+class WebViewClientHelper internal constructor() : WebViewClient() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
@@ -24,6 +23,6 @@ class WebViewClientHelper internal constructor(private val activity: Activity) :
     }
 
     override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
-        Toast.makeText(activity, "Got Error! $error", Toast.LENGTH_SHORT).show()
+        Log.d("WebViewClient", "Got Error! $error")
     }
 }

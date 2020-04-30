@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.grayhatdevelopers.thecoronamap.ui.fragments.home.HomeViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,37 +18,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
             android:fontFamily="@font/lato"
-            android:text="5,000"
+            android:text="@{viewModel.summarizedStats.active_cases__sum}"
             android:textColor="@color/colorPrimary"
             android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView24"
+            app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:fontFamily="@font/lato"
-            android:text="Total Recovered"
+            android:text="@string/total_recovered"
             android:textColor="@color/dark_gray"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/textView28"
-            app:layout_constraintStart_toStartOf="@+id/textView28"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:fontFamily="@font/lato"
-            android:text="Total Critical"
+            android:text="@string/total_critical"
             android:textColor="@color/dark_gray"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/textView22"
-            app:layout_constraintStart_toStartOf="@+id/textView22"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <TextView
@@ -54,13 +61,14 @@
             android:drawableStart="@drawable/green_circle"
             android:drawablePadding="4dp"
             android:fontFamily="@font/lato"
-            android:text="RECOVERED"
+            android:text="@string/recovered"
             android:textColor="@color/dark_gray"
             app:layout_constraintBottom_toBottomOf="@+id/textView26"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textView26"
-            app:layout_constraintTop_toTopOf="@+id/textView26" />
+            app:layout_constraintTop_toTopOf="@+id/textView26"
+            android:drawableLeft="@drawable/green_circle" />
 
         <TextView
             android:id="@+id/textView26"
@@ -69,13 +77,14 @@
             android:drawableStart="@drawable/red_circle"
             android:drawablePadding="4dp"
             android:fontFamily="@font/lato"
-            android:text="DEATHS"
+            android:text="@string/deaths"
             android:textColor="@color/dark_gray"
             app:layout_constraintBottom_toBottomOf="@+id/textView27"
             app:layout_constraintEnd_toStartOf="@+id/textView25"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textView27"
-            app:layout_constraintTop_toTopOf="@+id/textView27" />
+            app:layout_constraintTop_toTopOf="@+id/textView27"
+            android:drawableLeft="@drawable/red_circle" />
 
         <TextView
             android:id="@+id/textView27"
@@ -87,25 +96,25 @@
             android:drawableStart="@drawable/blue_circle"
             android:drawablePadding="4dp"
             android:fontFamily="@font/lato"
-            android:text="CASES"
+            android:text="@string/cases"
             android:textColor="@color/dark_gray"
             app:layout_constraintEnd_toStartOf="@+id/textView26"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+            app:layout_constraintTop_toBottomOf="@+id/textView23"
+            android:drawableLeft="@drawable/blue_circle" />
 
         <TextView
             android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/lato"
-            android:text="1,000"
+            android:text="@{viewModel.summarizedStats.recovered__sum}"
             android:textColor="@color/colorPrimary"
             android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView23"
+            app:layout_constraintStart_toStartOf="@+id/textView23"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
@@ -118,11 +127,22 @@
             android:layout_marginRight="24dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/countries_list_outline"
+            android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView26">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:indeterminate="true"
+                android:translationY="-6dp" />
 
             <TextView
                 android:id="@+id/textView29"
@@ -130,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
                 android:padding="16dp"
-                android:text="STATS BY COUNTRY"
+                android:text="@string/stats_by_country"
                 android:textColor="@color/dark_gray" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -139,7 +159,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:visibility="visible"
                 tools:listitem="@layout/item_country_stats" />
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

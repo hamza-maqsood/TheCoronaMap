@@ -9,6 +9,7 @@ import com.grayhatdevelopers.thecoronamap.R
 import com.grayhatdevelopers.thecoronamap.adapters.DataBoundListAdapter
 import com.grayhatdevelopers.thecoronamap.databinding.ItemCountryStatsBinding
 import com.grayhatdevelopers.thecoronamap.models.CountryStat
+import java.text.DecimalFormat
 
 class CountryStatsAdapter : DataBoundListAdapter<CountryStat>(
     diffCallback = object : DiffUtil.ItemCallback<CountryStat>() {
@@ -35,6 +36,9 @@ class CountryStatsAdapter : DataBoundListAdapter<CountryStat>(
         when (binding) {
             is ItemCountryStatsBinding -> {
                 binding.data = item
+                binding.mortalityTxt.text = if (item.mortalityRate == 0.toDouble())
+                    DecimalFormat("0").format(item.mortalityRate) + "%"
+                else DecimalFormat("0.00").format(item.mortalityRate) + "%"
             }
         }
     }

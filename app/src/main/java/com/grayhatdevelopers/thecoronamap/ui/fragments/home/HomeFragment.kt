@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.observe
@@ -14,13 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.grayhatdevelopers.thecoronamap.R
 import com.grayhatdevelopers.thecoronamap.adapters.countrystats.CountryStatsAdapter
 import com.grayhatdevelopers.thecoronamap.databinding.FragmentHomeBinding
-import com.grayhatdevelopers.thecoronamap.models.CountryStat
 import com.grayhatdevelopers.thecoronamap.repo.Repository
 import com.grayhatdevelopers.thecoronamap.ui.fragments.base.BaseFragment
 import com.grayhatdevelopers.thecoronamap.ui.fragments.webview.WebViewClientHelper
 import com.grayhatdevelopers.thecoronamap.utils.InjectorUtils
+import com.grayhatdevelopers.thecoronamap.utils.getCurrentTime
+import com.grayhatdevelopers.thecoronamap.utils.hasNetwork
+import kotlinx.coroutines.*
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), CoroutineScope by MainScope() {
 
     private lateinit var mViewModel: HomeViewModel
     private lateinit var homeFragmentBinding : FragmentHomeBinding
@@ -61,7 +64,9 @@ class HomeFragment : BaseFragment() {
             when (it) {
                 HomeActions.OpenFulMap -> {
                     Log.d(TAG, "Opening Full Map")
-                    baseViewModel.navigate(HomeFragmentDirections.actionHomeFragmentToWebViewFragment())
+                    val link = "https://www.thecoronamap.com/"
+                    val bundle = bundleOf("link" to link)
+                    baseViewModel.navigate(HomeFragmentDirections.actionHomeFragmentToWebViewFragment(link), bundle)
                 }
                 is HomeActions.ShowOrHideExpandedStats -> {
                     if (it.show) {
@@ -76,21 +81,23 @@ class HomeFragment : BaseFragment() {
                     Log.d(TAG, "Opening Report Fragment")
                     baseViewModel.navigate(HomeFragmentDirections.actionHomeFragmentToReportFragment())
                 }
-
+                HomeActions.OpenSymptomsChecker -> {
+                    Log.d(TAG, "Opening Symptoms Checker")
+                    val link = "https://tcm-symptoms-checker.web.app/"
+                    val bundle = bundleOf("link" to link)
+                    baseViewModel.navigate(HomeFragmentDirections.actionHomeFragmentToWebViewFragment(link), bundle)
+                }
             }
         }
     }
 
     private fun populateRecyclerView() {
         // insert dummy data
-        arrayListOf<CountryStat>().apply {
-            for (x in 0..30)
-                add(CountryStat())
-            Repository.getInstance().countryStats.postValue(this.toList())
+        launch {
+            if (hasNetwork(context!!))
+                Repository.getInstance().getAllCountriesData(getCurrentTime())
+            else Repository.getInstance().getCountriesCachedData()
         }
-
-
-
         countryStatsAdapter = CountryStatsAdapter()
         homeFragmentBinding.expandedStats.countryStatsList.apply {
             adapter = countryStatsAdapter
@@ -103,19 +110,17 @@ class HomeFragment : BaseFragment() {
                 this.submitList(it)
             }
         }
+        homeFragmentBinding.expandedStats.progressBar.visibility = View.GONE
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupWebView() {
         homeFragmentBinding.homeWebview.apply {
             webViewClient =
-            WebViewClientHelper(
-                activity!!
-            )
+            WebViewClientHelper()
            settings.javaScriptEnabled = true
-           loadUrl("https://www.thecoronamap.com/")
+           loadUrl("https://mobile-thecoronamap.web.app/")
         }
-
     }
 
 

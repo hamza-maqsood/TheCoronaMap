@@ -56,7 +56,8 @@
                             android:layout_marginTop="50dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/drawer" />
+                            app:srcCompat="@drawable/drawer"
+                            tools:ignore="ContentDescription" />
 
                         <ImageView
                             android:id="@+id/imageView5"
@@ -69,17 +70,19 @@
                             app:layout_constraintHorizontal_bias="0.482"
                             app:layout_constraintStart_toEndOf="@+id/nav_icon"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/thecoronamap" />
+                            app:srcCompat="@drawable/thecoronamap"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/textView9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato"
-                            android:text="300,000"
+                            android:text="@{viewModel.summarizedStats.active_cases__sum}"
                             android:textColor="@color/colorPrimary"
                             android:textSize="30sp"
-                            app:layout_constraintStart_toStartOf="@+id/nav_icon"
+                            app:layout_constraintEnd_toEndOf="@+id/textView11"
+                            app:layout_constraintStart_toStartOf="@+id/textView11"
                             app:layout_constraintTop_toTopOf="@+id/textView10" />
 
                         <TextView
@@ -88,23 +91,25 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
                             android:fontFamily="@font/lato"
-                            android:text="20,000"
+                            android:text="@{viewModel.summarizedStats.dead__sum}"
                             android:textColor="@color/colorPrimary"
                             android:textSize="30sp"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView6"
+                            app:layout_constraintEnd_toEndOf="@+id/textView12"
+                            app:layout_constraintStart_toStartOf="@+id/textView12"
                             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
                         <TextView
                             android:id="@+id/textView11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginLeft="24dp"
                             android:layout_marginBottom="32dp"
                             android:fontFamily="@font/lato"
-                            android:text="Cases Confirmed"
+                            android:text="@string/cases_confirmed"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@+id/textView13"
-                            app:layout_constraintEnd_toEndOf="@+id/textView9"
-                            app:layout_constraintStart_toStartOf="@+id/textView9"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView9"
                             app:layout_constraintVertical_bias="0.0" />
 
@@ -112,11 +117,12 @@
                             android:id="@+id/textView12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginRight="24dp"
                             android:fontFamily="@font/lato"
-                            android:text="Total Deaths"
+                            android:text="@string/total_deaths"
                             android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="@+id/textView10"
-                            app:layout_constraintStart_toStartOf="@+id/textView10"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
                         <com.google.android.material.card.MaterialCardView
@@ -136,7 +142,8 @@
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent">
+                                android:layout_height="match_parent"
+                                tools:visibility="gone">
 
 
                                 <TextView
@@ -146,13 +153,14 @@
                                     android:layout_marginStart="8dp"
                                     android:layout_marginLeft="8dp"
                                     android:layout_marginTop="8dp"
-                                    android:text="SHOWING STATS FOR"
+                                    android:text="@string/showing_stats_for"
                                     android:textColor="@color/black"
                                     android:textSize="10sp"
                                     app:layout_constraintEnd_toStartOf="@+id/imageView4"
                                     app:layout_constraintHorizontal_bias="0.0"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:ignore="SmallSp" />
 
                                 <TextView
                                     android:id="@+id/textView40"
@@ -177,7 +185,8 @@
                                     android:textColor="@color/black"
                                     android:textSize="10sp"
                                     app:layout_constraintStart_toStartOf="@+id/textView40"
-                                    app:layout_constraintTop_toBottomOf="@+id/textView40" />
+                                    app:layout_constraintTop_toBottomOf="@+id/textView40"
+                                    tools:ignore="SmallSp" />
 
                                 <CheckBox
                                     android:id="@+id/checkBox"
@@ -211,14 +220,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginRight="8dp"
-                                    android:text="Give Alert Notifications"
+                                    android:text="@string/give_alert_notifications"
                                     android:textColor="@color/black"
                                     android:textSize="10sp"
                                     android:translationX="-4dp"
                                     app:layout_constraintBottom_toBottomOf="@+id/checkBox"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/checkBox"
-                                    app:layout_constraintTop_toTopOf="@+id/checkBox" />
+                                    app:layout_constraintTop_toTopOf="@+id/checkBox"
+                                    tools:ignore="SmallSp" />
 
                                 <ImageView
                                     android:id="@+id/imageView4"
@@ -230,7 +240,8 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     android:onClick="@{() -> viewModel.showOrHideOptionsMenu()}"
                                     app:layout_constraintTop_toTopOf="@+id/textView39"
-                                    app:srcCompat="@drawable/ic_baseline_close_24" />
+                                    app:srcCompat="@drawable/ic_baseline_close_24"
+                                    tools:ignore="ContentDescription" />
 
                                 <ImageView
                                     android:id="@+id/imageView8"
@@ -241,7 +252,8 @@
                                     app:layout_constraintBottom_toBottomOf="@+id/textView40"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="@+id/textView40"
-                                    app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                                    app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
+                                    tools:ignore="ContentDescription" />
 
                                 <ImageView
                                     android:id="@+id/imageView9"
@@ -252,7 +264,8 @@
                                     app:layout_constraintBottom_toBottomOf="@+id/textView42"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="@+id/textView42"
-                                    app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                                    app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
+                                    tools:ignore="ContentDescription" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -263,6 +276,7 @@
                             layout="@layout/layout_expanded_stats"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:viewModel="@{viewModel}"
                             bind:goneUnless="@{viewModel.showExpandedStatsView}"
                             app:layout_constraintBottom_toTopOf="@+id/textView13"
                             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -279,7 +293,7 @@
                             android:drawableEnd="@{viewModel.showExpandedStatsView ? @drawable/ic_baseline_keyboard_arrow_up_24 : @drawable/ic_baseline_keyboard_arrow_down_24}"
                             android:fontFamily="@font/lato"
                             android:gravity="center"
-                            android:text="QUICK STATS"
+                            android:text="@string/quick_stats"
                             android:onClick="@{() -> viewModel.showOrHideExpandedStats()}"
                             android:textColor="@color/dark_gray"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -297,7 +311,8 @@
                             android:onClick="@{() -> viewModel.showOrHideOptionsMenu()}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/stats_icon" />
+                            app:srcCompat="@drawable/stats_icon"
+                            tools:ignore="ContentDescription" />
 
                         <ImageView
                             android:id="@+id/imageView7"
@@ -307,7 +322,8 @@
                             android:translationY="4dp"
                             app:layout_constraintBottom_toTopOf="@+id/imageView6"
                             app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                            app:srcCompat="@drawable/globe_icon" />
+                            app:srcCompat="@drawable/globe_icon"
+                            tools:ignore="ContentDescription" />
 
 
 
@@ -326,7 +342,7 @@
                     android:layout_marginRight="32dp"
                     android:fontFamily="@font/lato"
                     android:gravity="center"
-                    android:text="Immediately get relevant updates by turning on your location."
+                    android:text="@string/immediately_get_relevant_updates_by_turning_on_your_location"
                     android:textColor="@color/dark_gray"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -380,7 +396,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/lato"
-                            android:text="Report a Case"
+                            android:text="@string/report_a_case"
                             android:textColor="@color/colorPrimary"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -397,7 +413,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
                             android:fontFamily="@font/lato"
-                            android:text="If someone you know or heard of, infected with cornovirus? Let us know. It'll help save lives."
+                            android:text="@string/if_someone_you_know_or_heard_of_infected_with_coronavirus_let_us_know_it_ll_help_save_lives"
                             android:textColor="@color/dark_gray"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -411,18 +427,21 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginTop="16dp"
                             android:background="@drawable/button_bg_gray"
+                            android:elevation="8dp"
                             android:fontFamily="@font/lato"
                             android:paddingLeft="8dp"
                             android:paddingTop="4dp"
-                            android:elevation="8dp"
                             android:paddingRight="8dp"
                             android:paddingBottom="4dp"
-                            android:text="SEE EXISTING REPORTS"
+                            android:onClick="@{() -> viewModel.openSymptomsChecker()}"
+                            android:text="@string/check_your_symptoms"
                             android:textColor="@color/white"
+                            android:textSize="12sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/textView19"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView17"
+                            tools:ignore="UnusedAttribute" />
 
                         <TextView
                             android:id="@+id/textView19"
@@ -433,19 +452,21 @@
                             android:layout_marginRight="16dp"
                             android:layout_marginBottom="16dp"
                             android:background="@drawable/button_bg_red"
+                            android:elevation="8dp"
                             android:fontFamily="@font/lato"
+                            android:onClick="@{() -> viewModel.openReportFragment()}"
                             android:paddingLeft="8dp"
                             android:paddingTop="4dp"
                             android:paddingRight="8dp"
                             android:paddingBottom="4dp"
-                            android:onClick="@{() -> viewModel.openReportFragment()}"
-                            android:elevation="8dp"
-                            android:text="REPORT A CASE"
+                            android:text="@string/report_a_case_"
                             android:textColor="@color/white"
+                            android:textSize="12sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView17"
+                            tools:ignore="UnusedAttribute" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -495,11 +516,12 @@
                             android:paddingRight="12dp"
                             android:paddingBottom="6dp"
                             android:elevation="8dp"
-                            android:text="VIEW FULL MAP"
+                            android:text="@string/view_full_map"
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/home_webview"
-                            app:layout_constraintEnd_toEndOf="@+id/home_webview" />
+                            app:layout_constraintEnd_toEndOf="@+id/home_webview"
+                            tools:ignore="UnusedAttribute" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

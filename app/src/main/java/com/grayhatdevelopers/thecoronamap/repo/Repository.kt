@@ -1,7 +1,10 @@
 package com.grayhatdevelopers.thecoronamap.repo
 
 import androidx.lifecycle.MutableLiveData
+import com.grayhatdevelopers.thecoronamap.application.MainApplication
 import com.grayhatdevelopers.thecoronamap.models.CountryStat
+import com.grayhatdevelopers.thecoronamap.models.toCountryStat
+import com.grayhatdevelopers.thecoronamap.utils.SharedPreferencesHelper
 
 
 class Repository private constructor() {
@@ -25,6 +28,39 @@ class Repository private constructor() {
                 }
     }
 
+    private val retrofitAPI = ApiClient.createService(RetrofitDAO::class.java)
+
+    val sharedPreferencesHelper: SharedPreferencesHelper = SharedPreferencesHelper(MainApplication.context!!)
+
     val countryStats: MutableLiveData<List<CountryStat>> = MutableLiveData()
+
+    private var isDataLoaded = false
+
+    private suspend fun getCountriesData(date: String) = retrofitAPI.getAllCountriesData(date)
+
+    private suspend fun getStatsForDay(date: String) = retrofitAPI.getStatsForTheDay(date)
+
+    suspend fun getAllCountriesData(date: String) {
+        if (!isDataLoaded) {
+            val response = getCountriesData(date)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    val data = mutableListOf<CountryStat>()
+                    for (e in it) {
+                        data.add(e.toCountryStat())
+                    }
+                    sharedPreferencesHelper.saveCountriesData(data)
+                }
+            }
+        }
+        getCountriesCachedData()
+    }
+
+    fun getCountriesCachedData() {
+        // post the data from shared preferences
+        countryStats.postValue(sharedPreferencesHelper.getCountriesData())
+    }
+
+    suspend fun getTodayStats(date: String) = getStatsForDay(date)
 
 }

@@ -15,12 +15,16 @@
 
         <TextView
             android:id="@+id/textView30"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:ellipsize="end"
             android:fontFamily="@font/lato"
-            android:text="China"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@{data.name}"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView34"
@@ -32,11 +36,11 @@
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/lato"
-            android:text="81,171"
+            android:text="@{Integer.toString(data.casesCount)}"
             android:textColor="@color/blue"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/textView32"
@@ -51,7 +55,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:fontFamily="@font/lato"
-            android:text="29,178"
+            android:text="@{Integer.toString(data.deathsCount)}"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/textView33"
@@ -65,10 +69,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:fontFamily="@font/lato"
-            android:text="24,234"
+            android:text="@{Integer.toString(data.recoveredCount)}"
             android:textColor="@color/online_green"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +93,8 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
             app:layout_constraintStart_toStartOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/textView31" />
+            app:layout_constraintTop_toBottomOf="@+id/textView31"
+            android:drawableLeft="@drawable/down_blue" />
 
         <TextView
             android:id="@+id/textView35"
@@ -104,7 +109,8 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/textView32"
             app:layout_constraintStart_toStartOf="@+id/textView32"
-            app:layout_constraintTop_toBottomOf="@+id/textView32" />
+            app:layout_constraintTop_toBottomOf="@+id/textView32"
+            android:drawableLeft="@drawable/down_red" />
 
         <TextView
             android:id="@+id/textView36"
@@ -119,7 +125,8 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/textView33"
             app:layout_constraintStart_toStartOf="@+id/textView33"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            app:layout_constraintTop_toBottomOf="@+id/textView33"
+            android:drawableLeft="@drawable/up_green" />
 
         <View
             android:layout_width="0dp"
@@ -140,18 +147,18 @@
             android:id="@+id/textView37"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(Mortality Rate)"
+            android:text="@string/mortality_rate"
             android:textColor="@color/dark_gray"
             android:textSize="8sp"
             app:layout_constraintEnd_toEndOf="@+id/textView30"
             app:layout_constraintStart_toStartOf="@+id/textView30"
-            app:layout_constraintTop_toBottomOf="@+id/textView38" />
+            app:layout_constraintTop_toBottomOf="@+id/mortality_txt"
+            tools:ignore="SmallSp" />
 
         <TextView
-            android:id="@+id/textView38"
+            android:id="@+id/mortality_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2.38%"
             android:textColor="@color/dark_gray"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/textView37"
